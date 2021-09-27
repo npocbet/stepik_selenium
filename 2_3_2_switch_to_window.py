@@ -9,17 +9,15 @@ def calc(x):
   return str(math.log(abs(12*math.sin(int(x)))))
 
 
-link = "http://suninjuly.github.io/alert_accept.html"
+link = "http://suninjuly.github.io/redirect_accept.html"
 browser = webdriver.Chrome()
 try:
 
     browser.get(link)
     button = browser.find_element(By.TAG_NAME, 'button')
     button.click()
-
-    alert = browser.switch_to.alert
-    alert.accept()
-
+    time.sleep(5)
+    browser.switch_to.window(browser.window_handles[1])
 
     inputX = browser.find_element(By.CSS_SELECTOR, "#input_value")
     x = inputX.text
