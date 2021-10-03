@@ -15,16 +15,23 @@ class ProductPage(BasePage):
         if addButton:
             addButton.click()
 
-    def check_product_name_in_the_buscet(self):
+    def get_product_name_in_the_message(self):
         item_name_added_to_buscet = self.get_element(*ProductPageLocators.ITEM_NAME_MESSAGE).text
-        item_name_added_to_buscet = item_name_added_to_buscet[
-                                    :item_name_added_to_buscet.find(' has been added to your basket.')]
-        item_name = self.get_element(*ProductPageLocators.ITEM_NAME).text
-        assert item_name_added_to_buscet == item_name, "There is a difference between item name and " \
-                                                       "item name added to buscet"
+        return item_name_added_to_buscet[:item_name_added_to_buscet.find(' has been added to your basket.')]
+
+    def get_product_name(self):
+        return self.get_element(*ProductPageLocators.ITEM_NAME).text
+
+    def check_product_name_in_the_buscet(self):
+        assert self.get_product_name_in_the_message() == self.get_product_name(), \
+            "There is a difference between item name and item name added to buscet"
+
+    def get_product_price_added_to_buscet(self):
+        return self.get_element(*ProductPageLocators.ITEM_PRICE_MESSAGE).text
+
+    def get_product_price(self):
+        return self.get_element(*ProductPageLocators.ITEM_PRICE).text
 
     def check_product_price_in_the_buscet(self):
-        item_price_added_to_buscet = self.get_element(*ProductPageLocators.ITEM_PRICE_MESSAGE).text
-        item_price = self.get_element(*ProductPageLocators.ITEM_PRICE).text
-        assert item_price_added_to_buscet == item_price, "There is a difference between item price and " \
-                                                         "price of added to buscet"
+        assert self.get_product_price_added_to_buscet() == self.get_product_price(),\
+            "There is a difference between item price and price of added to buscet"
