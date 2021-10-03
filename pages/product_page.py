@@ -3,7 +3,7 @@ from pages.locators import ProductPageLocators
 
 
 class ProductPage(BasePage):
-    def should_be_correct_value_in_the_allert(self):
+    def adding_item_to_the_buscet(self):
         self.should_be_buscet_button()
         self.click_to_add_to_buscet_button()
 
@@ -35,3 +35,10 @@ class ProductPage(BasePage):
     def check_product_price_in_the_buscet(self):
         assert self.get_product_price_added_to_buscet() == self.get_product_price(),\
             "There is a difference between item price and price of added to buscet"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            'There is a message of successfull added item when its not'
+
+    def should_not_be_success_message_after_timeout(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), 'Success message is not hiding after timeout'
