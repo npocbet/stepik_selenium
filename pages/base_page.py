@@ -75,3 +75,7 @@ class BasePage:
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
+
+    def open_buscet(self):
+        busket_link = self.browser.find_element(*BasePageLocators.VIEW_BUSKET_BUTTON)
+        busket_link.click()
