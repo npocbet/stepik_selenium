@@ -39,6 +39,7 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, 
     page.should_not_be_success_message()
 
 
+@pytest.mark.xfail
 @pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"])
 def test_message_disappeared_after_adding_product_to_basket(browser, link):
     page = ProductPage(browser, link)
@@ -72,6 +73,7 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     basket_page.should_not_be_items_in_the_busket()
     basket_page.should_be_text_about_empty_basket()
 
+
 @pytest.mark.user_actions
 class TestUserAddToBasketFromProductPage:
     @pytest.fixture(scope="function", autouse=True)
@@ -82,7 +84,6 @@ class TestUserAddToBasketFromProductPage:
         password = 'Qwer4321!'
         page.register_new_user(email, password)
         page.should_be_authorized_user()
-
 
     # @pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"])
     @pytest.mark.parametrize('link', ['http://selenium1py.pythonanywhere.com/ru/'])
